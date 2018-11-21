@@ -73,7 +73,6 @@ for feature in cdl:
                     tlink =  blink + '/Online/$value'
                     dlink = blink + '/\$value'
                     os.system('curl -s -u ' + username + ':' + password + ' ' + '"' + tlink + '" > status.txt')
-                    #TODO: submit requests for offline files through the script                    
                     with open('status.txt') as sf:
                         for sline in sf:
                             if 'true' in sline:

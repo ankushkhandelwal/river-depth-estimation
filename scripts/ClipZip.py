@@ -79,9 +79,10 @@ for index,scene in dfu.iterrows():
             curID = feature.GetField('BID')
             minX, maxX, minY, maxY = geom.GetEnvelope()
 
-            out_dir = out_base + 'Box-' + str(curID) + '/'
+            out_dir = out_base + prefix + '-' + str(BID) + '/'
             OutTileName = out_dir + 'r' + tif_file
             print OutTileName
+            #clip command
             OutTile = gdal.Warp(OutTileName, Raster, format=RasterFormat, outputBounds=[minX, minY, maxX, maxY],
                                 xRes=xPixelRes, yRes=yPixelRes, dstSRS=Projection, resampleAlg=gdal.GRA_NearestNeighbour)
 

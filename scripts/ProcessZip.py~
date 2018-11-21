@@ -51,7 +51,7 @@ def run(fname,data_dir):
                 row.append(0)
         water_mask.append(row)
 
-    # converting water mask to geotif
+    # ToDo: Convert water_mask to tif
     water_mask = np.reshape(water_mask,(rows,cols))
     mds = rasterDriver.Create(data_dir + '/' + fname + '.tiff', full_xsize, full_ysize, 1, gdal.GDT_Byte)
     mds.SetGeoTransform(geotransform)
