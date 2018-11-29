@@ -32,7 +32,7 @@ coordTrans = osr.CoordinateTransformation(inSpatialRef, outSpatialRef)
 
 
 # looping through boxes
-lfa = open('file-list-' + 'all2' + '.txt', 'w') # file to store scene information from all boxes
+lfa = open('file-list-' + 'all' + '.txt', 'w') # file to store scene information from all boxes
 for feature in cdl:
 
     # get boundary information of the partition
