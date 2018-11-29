@@ -4,18 +4,18 @@ import numpy as np
 #import matplotlib.pyplot as plt
 import glob
 
-def run(fname,data_dir):
+def run(fname,data_dir,ext):
     rasterFormat = 'GTiff'  # for now assuming output format is going to GTiff
     rasterDriver = gdal.GetDriverByName(rasterFormat)
     vv = -1
     vh = -1
-    for filename in glob.glob(data_dir + '*' + fname + '*.tiff'):
+    for filename in glob.glob(data_dir + '*' + fname + '*.'+ ext):
         
         #print filename
-        if 'vv' in filename:
+        if 'vv' in filename or 'VV' in filename:
             dsv = gdal.Open(filename,0)
             vv = dsv.GetRasterBand(1)
-        if 'vh' in filename:
+        if 'vh' in filename or 'VH' in filename:
             dsh = gdal.Open(filename,0)
             vh = dsh.GetRasterBand(1)
     if vh==-1 or vv==-1:
@@ -53,7 +53,7 @@ def run(fname,data_dir):
 
     # converting water mask to geotif
     water_mask = np.reshape(water_mask,(rows,cols))
-    mds = rasterDriver.Create(data_dir + '/' + fname + '.tiff', full_xsize, full_ysize, 1, gdal.GDT_Byte)
+    mds = rasterDriver.Create(data_dir + '/' + fname + '.' + ext, full_xsize, full_ysize, 1, gdal.GDT_Byte)
     mds.SetGeoTransform(geotransform)
     mds.SetProjection(projection)
     mds.GetRasterBand(1).WriteArray(water_mask)

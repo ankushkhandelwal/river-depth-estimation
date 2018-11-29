@@ -32,19 +32,21 @@ coordTrans = osr.CoordinateTransformation(inSpatialRef, outSpatialRef)
 
 
 # looping through boxes
-lfa = open('file-list-' + 'all' + '.txt', 'w') # file to store scene information from all boxes
+lfa = open('file-list-' + 'all2' + '.txt', 'w') # file to store scene information from all boxes
 for feature in cdl:
 
     # get boundary information of the partition
     geom = feature.GetGeometryRef()
-    geom.Transform(coordTrans)
+    #geom.Transform(coordTrans)
     minX, maxX, minY, maxY = geom.GetEnvelope() #bounding box of the box
     curID = feature.GetField('BID')
     ilat_min = minY
     ilat_max = maxY
     ilon_min = minX
     ilon_max = maxX
+    print ilat_min,ilon_min,ilat_max,ilon_max
     bbox_str = str(ilon_min) + '%20' + str(ilat_min) + ',' + str(ilon_max) + '%20' + str(ilat_min) + ',' + str(ilon_max) + '%20' + str(ilat_max) + ',' + str(ilon_min) + '%20' + str(ilat_max) + ',' + str(ilon_min) + '%20' + str(ilat_min)
+    #print bbox_str
     query = '(platformname:Sentinel-1%20AND%20producttype:GRD%20AND%20beginposition:%5b' + sdate + 'T00:00:00.000Z%20TO%20' + edate + 'T00:00:00.000Z%5d%20AND%20footprint:%22Intersects(POLYGON((' + bbox_str + ')))%22)'
     os.system('curl -s -u ' + username + ':' + password + ' "https://scihub.copernicus.eu/dhus/search?q=' + query + '" > code_test1.txt')
 
@@ -71,21 +73,28 @@ for feature in cdl:
                     eind = line.rfind(')')
                     blink = line[sind + 1:eind+1]
                     tlink =  blink + '/Online/$value'
-                    dlink = blink + '/\$value'
+                    dlink = 'https://datapool.asf.alaska.edu/GRD_HD/'
+                    #dlink = blink + '/\$value'
                     os.system('curl -s -u ' + username + ':' + password + ' ' + '"' + tlink + '" > status.txt')
                     #TODO: submit requests for offline files through the script                    
                     with open('status.txt') as sf:
                         for sline in sf:
                             if 'true' in sline:
                                 print dlink
-                                lf.write(dlink + ',')
-                                lfa.write(dlink + ',')
+                                #lf.write(dlink + ',')
+                                #lfa.write(dlink + ',')
                                 #os.system('wget --content-disposition --continue --user=ankushumn --password=michinel21c ' + '"' + dlink + '"')
 
                 if '<str name="filename">' in line:
                     sind = line.find('>')
                     eind = line.find('/')
                     fname = line[sind+1:eind-1]
+                    if fname[0:3]=='S1A':
+                        dlink = dlink + 'SA/' + fname[0:-5] + '.zip'
+                    else:
+                        dlink = dlink + 'SB/' + fname[0:-5] + '.zip'
+                    lf.write(dlink + ',')
+                    lfa.write(dlink + ',')
                     lf.write(fname + '\n')
                     lfa.write(fname + '\n')
 
