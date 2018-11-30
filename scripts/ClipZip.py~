@@ -54,7 +54,6 @@ for index,scene in dfu.iterrows():
     if os.path.isfile(data_dir + zip_file) == False:
         #os.system('wget --directory-prefix=' + data_dir + ' --content-disposition --continue --user=' + username + ' --password=' + password + ' ' + '"' + dlink + '"')
         os.system('wget --directory-prefix=' + data_dir + ' "' + dlink + '"')
-    continue
     # checking if the zip file is already unzipped. This part will always get called in pegasus workflow    
     if os.path.isfile(data_dir + zip_file) == False:
         continue

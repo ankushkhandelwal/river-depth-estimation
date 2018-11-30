@@ -70,6 +70,8 @@ for index,scene in dfu.iterrows():
 
         #adding projection to the tif file. This part will be updated in later versions
         #os.system('gdalwarp -q -overwrite -tps -tr 10 10 -t_srs EPSG:20136 ' + tif_dir + tif_file + ' ' + tif_dir + 'r' + tif_file)
+        print('gdalwarp -t_srs ' + dem_file + ' ' + tif_dir + tif_file + ' ' + tif_dir + 'r' + tif_file)
+        
         os.system('gdalwarp -t_srs ' + dem_file + ' ' + tif_dir + tif_file + ' ' + tif_dir + 'r' + tif_file)
 
         Raster = gdal.Open(tif_dir + 'r' + tif_file, 1)
@@ -83,8 +85,12 @@ for index,scene in dfu.iterrows():
             geom = feature.GetGeometryRef()
             curID = feature.GetField('BID')
             minX, maxX, minY, maxY = geom.GetEnvelope()
+          
 
             out_dir = out_base + prefix + '-' + str(curID) + '/'
+            fid = open(out_dir + 'bbox.txt','w')
+            fid.write(str(minY) + ' ' + str(minX) + ' ' + str(maxY) + ' ' + str(maxX) + '\n')
+            fid.close()
             DemRaster = gdal.Open(out_dir + '/dem.tiff', 1)
             band = DemRaster.GetRasterBand(1)
             width = band.XSize
