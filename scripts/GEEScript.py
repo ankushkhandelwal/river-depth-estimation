@@ -16,6 +16,9 @@ sdate = sys.argv[2]
 edate = sys.argv[3]
 out_base = sys.argv[4]
 prefix = sys.argv[5]
+basin_file = sys.argv[6]
+basin_id = sys.argv[7]
+num_boxes = int(sys.argv[8])
 
 # opening the shapefile
 print box_file
@@ -23,7 +26,20 @@ driver = ogr.GetDriverByName("ESRI Shapefile")
 cds = driver.Open(box_file, 0)
 cdl = cds.GetLayer()
 
- 
+bds = driver.Open(basin_file, 0)
+bdl = bds.GetLayer()
+bdl.SetAttributeFilter("catNum = " + basin_id)
+print 'Number of selected sub-basins: ' + str(bdl.GetFeatureCount())
+
+
+for bfeature in bdl:
+    bgeom = bfeature.GetGeometryRef()
+
+cdl.SetSpatialFilter(bgeom)
+print 'Number of boxes in the sub-basin: ' + str(cdl.GetFeatureCount())
+
+
+ctr = 0
 for feature in cdl:
 
     # get boundary information of the partition
@@ -166,5 +182,9 @@ for feature in cdl:
 
         i = i + 1
         flag = 0
+        ctr = ctr + 1
+    if ctr==num_boxes:
+        break
+
    
 

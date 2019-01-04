@@ -8,15 +8,18 @@ dem_file = sys.argv[2] # full path to dem file
 cfile = sys.argv[3] # file that contains the credentials
 out_base = sys.argv[4] # base path where folders for individual boxes would be made
 prefix = sys.argv[5]
+basin_file = sys.argv[6]
+basin_id = sys.argv[7]
+num_boxes = int(sys.argv[8])
 
 # creating base directory if does not already exists
 if os.path.isdir(out_base)==False:
     os.mkdir(out_base)
 
 # reading the first set of credentials 
-cf = pandas.read_csv(cfile,names=['username','password'])
-username = cf['username'][0]
-password = cf['password'][0]
+#cf = pandas.read_csv(cfile,names=['username','password'])
+#username = cf['username'][0]
+#password = cf['password'][0]
 
 # constants
 RasterFormat = 'GTiff'
@@ -27,8 +30,6 @@ yPixelRes = -0.00027777778/3.0
 outSpatialRef = osr.SpatialReference()
 outSpatialRef.ImportFromEPSG(4326)
 
-
-
 dem_name = dem_file[dem_file.rfind('/')+1:]
 Raster = gdal.Open(dem_file, 1)
 Projection = Raster.GetProjectionRef()
@@ -37,6 +38,19 @@ Projection = Raster.GetProjectionRef()
 driver = ogr.GetDriverByName("ESRI Shapefile")
 cds = driver.Open(box_file, 0)
 cdl = cds.GetLayer()
+
+bds = driver.Open(basin_file, 0)
+bdl = bds.GetLayer()
+bdl.SetAttributeFilter("catNum = " + basin_id)
+print 'Number of selected sub-basins: ' + str(bdl.GetFeatureCount())
+
+for bfeature in bdl:
+    bgeom = bfeature.GetGeometryRef()
+
+cdl.SetSpatialFilter(bgeom)
+print 'Number of boxes in the sub-basin: ' + str(cdl.GetFeatureCount())
+
+ctr = 0
 # clipping the tif file for each box
 for feature in cdl:
     #geom = feature.GetGeometryRef()
@@ -72,6 +86,10 @@ for feature in cdl:
     #                    xRes=xPixelRes, yRes=yPixelRes, dstSRS=Projection, resampleAlg=gdal.GRA_NearestNeighbour)
     OutTile = gdal.Warp(OutTileName, Raster, format=RasterFormat, outputBounds=[minX, minY, maxX, maxY],
                                 width=width, height=height,dstSRS=Projection, resampleAlg=gdal.GRA_NearestNeighbour)
+    
+    ctr = ctr + 1
+    if ctr==num_boxes:
+        break
 
 Raster = None
 cds.Destroy()
