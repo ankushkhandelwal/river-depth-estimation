@@ -11,7 +11,7 @@ if isGEE=='1':
     ext = 'tif'
     fnames = []
     for fname in os.listdir(data_dir):
-        if fname.endswith('tif')==False or fname[0]!='r':
+        if fname.endswith('tif')==False:
             continue
         fnames.append(fname[17:48])
 

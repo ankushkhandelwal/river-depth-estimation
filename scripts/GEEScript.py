@@ -18,6 +18,7 @@ out_base = sys.argv[4]
 prefix = sys.argv[5]
 
 # opening the shapefile
+print box_file
 driver = ogr.GetDriverByName("ESRI Shapefile")
 cds = driver.Open(box_file, 0)
 cdl = cds.GetLayer()
@@ -39,7 +40,7 @@ for feature in cdl:
     out_path = out_base + prefix + '-' + str(curID) + '/'
     if os.path.isdir(out_path)==False:
         os.mkdir(out_path)
-    '''   
+    '''	       
     senCol = ee.ImageCollection('COPERNICUS/S2').filterBounds(cur_box).filterDate(sdate,edate)
     senInfo = senCol.getInfo()
     num_images = len(senInfo['features'])
@@ -56,7 +57,7 @@ for feature in cdl:
             i = i + 1
             continue
 
-        path = data_image.getDownloadUrl({'name': image_id,'region': temp,'scale':10})
+        path = data_image.getDownloadUrl({'name': 'S2B_IW_GRDH_1SDV_' + image_id,'region': temp,'scale':10})
         try:
             urllib.urlretrieve(path, out_path + image_id + '.zip')
             os.system('unzip -q ' + out_path + image_id + '.zip -d ' + out_path)
@@ -165,5 +166,5 @@ for feature in cdl:
 
         i = i + 1
         flag = 0
-
+   
 
