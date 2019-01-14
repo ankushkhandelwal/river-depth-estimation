@@ -1,7 +1,7 @@
 import os
 import gdal
 import numpy as np
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import glob
 from skimage import filters
 
@@ -117,8 +117,9 @@ def runS1(fname,data_dir,ext):
     #                        alpha=0.7, rwidth=0.85)
     #vh_threshold = bins[3]
     
-    n, bins, patches = plt.hist(x=vv_flat, bins='auto', color='#0504aa',
-                            alpha=0.7, rwidth=0.85)
+    #n, bins, patches = plt.hist(x=vv_flat, bins='auto', color='#0504aa',
+    #                        alpha=0.7, rwidth=0.85)
+    n, bins = np.histogram(x=vv_flat, bins='auto')
     vv_threshold = bins[3]
     
     water_mask = vv_arr<vv_threshold
