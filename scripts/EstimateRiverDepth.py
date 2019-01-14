@@ -271,6 +271,7 @@ print 'Extracting cross sections...'
 emask = ndimage.binary_fill_holes(emask)
 cline = skimage.morphology.skeletonize(emask)
 csecs,ccord = PrepareCrossSections3(cline,data_dir + 'dem.tiff')
+'''
 f, (ax1, ax2, ax3, ax4,ax5,ax6) = plt.subplots(1,6, sharex=True, sharey=True,figsize=(10,5))
 ax1.imshow(np.divide(nmask,dmask))
 ax1.set_title('Fraction Map')
@@ -288,7 +289,7 @@ ax6.imshow(pmasks[:,:,max_extent_ind])
 ax6.set_title('Maximum Extent')
 f.savefig(data_dir + 'Cat' + catNum + '-' + boxNum + '-base.png')
 #plt.show()
-
+'''
 
 
 print 'Processing cross sections to approximate river bathymetry...'
@@ -341,12 +342,14 @@ for j in range(0,csecs.shape[2]):
     #    a = 1
     #else:
     #    continue
+    '''
     fig, (ax1,ax3,ax4) = plt.subplots(1,3,figsize=(15,5))
     ax1.plot(elvp,'--b',linewidth=1)
     ax1.set_ylim([emin,emax])
     ax2 = ax1.twinx()
     ax2.plot(labp,'r.')
     ax2.plot(cp,1,'b.')       
+    '''
     cur_dif = max_inds - min_inds[cls_min]
     cur_dif[cur_dif>0] = np.min(cur_dif)-1
     lml_ind = np.argmax(cur_dif)
@@ -382,7 +385,7 @@ for j in range(0,csecs.shape[2]):
     elvp_arr.append(ielvp)
     
     
-
+    '''
     ax1.plot([max_inds[lml_ind], max_inds[lml_ind]],[np.min(elvp),np.max(elvp)],'-r')
     ax1.plot([max_inds[lmr_ind], max_inds[lmr_ind]],[np.min(elvp),np.max(elvp)],'-r')
     ax1.plot([min_inds[cls_min], min_inds[cls_min]],[np.min(elvp),np.max(elvp)],'-k')
@@ -397,7 +400,7 @@ for j in range(0,csecs.shape[2]):
     ax4.imshow(rmask)
     fig.savefig(data_dir + 'Cat' + catNum + '-' + boxNum + '-sec-' + str(j) + '.png')
     #plt.show()
-
+    '''
 
 
 print 'Creating calibration files...'
@@ -464,10 +467,12 @@ for c in range(0,csecs.shape[2]):
     wts_full[0:sind] = wts[0]
     wts_full[eind:] = wts[-1]
     wts_full[sind:eind+1] = newy
+    '''
     fig = plt.figure()
     plt.plot(datetim_list,wts,'*b')
     plt.plot(fullx,wts_full,'.r')
     fig.savefig(data_dir + 'Cat' + catNum + '-' + boxNum + '-wts-' + str(c) + '.png')
+    '''
     for i in range(0,len(wts_full)):
         new_date = datetime(1970,1,1) + timedelta(fullx[i])
         new_date_str = new_date.strftime('%Y-%m-%d')
