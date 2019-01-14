@@ -119,7 +119,7 @@ def runS1(fname,data_dir,ext):
     
     #n, bins, patches = plt.hist(x=vv_flat, bins='auto', color='#0504aa',
     #                        alpha=0.7, rwidth=0.85)
-    n, bins = np.histogram(x=vv_flat, bins='auto')
+    n, bins = np.histogram(vv_flat, bins='auto')
     vv_threshold = bins[3]
     
     water_mask = vv_arr<vv_threshold
