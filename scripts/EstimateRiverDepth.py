@@ -230,6 +230,7 @@ datestr_list = []
 datetim_list = []
 datefmt_list = []
 print 'Reading water extent maps...'
+print mask_list
 for filename in mask_list:
     #print filename
     u1 = filename.find('_')
