@@ -66,7 +66,7 @@ for feature in cdl:
     flag = 0
     while i<num_images:
         cur_id = senInfo['features'][i]['id'];
-        print("Processing " + cur_id)
+        #print("Processing " + cur_id)
         image_id = cur_id[14:]
         data_image = ee.Image(cur_id)
         if os.path.isfile(out_path + image_id + '.zip')==True:
@@ -152,7 +152,7 @@ for feature in cdl:
     flag = 0
     while i<num_images:
         cur_id = senInfo['features'][i]['id'];
-        print("Processing " + cur_id)
+        #print("Processing " + cur_id)
         image_id = cur_id[18:]
         data_image = ee.Image(cur_id)
         if os.path.isfile(out_path + image_id + '.zip')==True:
@@ -182,7 +182,8 @@ for feature in cdl:
 
         i = i + 1
         flag = 0
-        ctr = ctr + 1
+    
+    ctr = ctr + 1
     if ctr==num_boxes:
         break
 
