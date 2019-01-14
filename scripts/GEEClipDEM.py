@@ -11,6 +11,7 @@ prefix = sys.argv[5]
 basin_file = sys.argv[6]
 basin_id = sys.argv[7]
 num_boxes = int(sys.argv[8])
+out_file = sys.argv[9]
 
 # creating base directory if does not already exists
 if os.path.isdir(out_base)==False:
@@ -79,7 +80,7 @@ for feature in cdl:
     height = band.YSize
     BaseRaster = None
             
-    OutTileName = out_dir + 'dem.tiff'
+    OutTileName = out_dir + out_file
     print OutTileName
     #clip command
     #OutTile = gdal.Warp(OutTileName, Raster, format=RasterFormat, outputBounds=[minX, minY, maxX, maxY],

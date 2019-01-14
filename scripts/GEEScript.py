@@ -56,7 +56,7 @@ for feature in cdl:
     out_path = out_base + prefix + '-' + str(curID) + '/'
     if os.path.isdir(out_path)==False:
         os.mkdir(out_path)
-    '''	       
+    print out_path       
     senCol = ee.ImageCollection('COPERNICUS/S2').filterBounds(cur_box).filterDate(sdate,edate)
     senInfo = senCol.getInfo()
     num_images = len(senInfo['features'])
@@ -88,7 +88,7 @@ for feature in cdl:
 
         i = i + 1
         flag = 0
-    '''            
+                
     '''
     senCol = ee.ImageCollection('LANDSAT/LC08/C01/T1_RT_TOA').filterBounds(cur_box).filterDate(sdate,edate)
     senInfo = senCol.getInfo()
@@ -155,9 +155,9 @@ for feature in cdl:
         print("Processing " + cur_id)
         image_id = cur_id[18:]
         data_image = ee.Image(cur_id)
-        #if os.path.isfile(out_path + image_id + '.zip')==True:
-        #    i = i + 1
-        #    continue
+        if os.path.isfile(out_path + image_id + '.zip')==True:
+            i = i + 1
+            continue
 
         path = data_image.getDownloadUrl({'name': image_id,'region': temp,'scale':10})
         #try:
