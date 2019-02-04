@@ -25,12 +25,12 @@ do
 
 	#cp $clipdir/*.png /home/kumarv/khand035/Projects/MINT/river-depth-estimation/data/Figures/
 	#cp $clipdir/*.csv /home/kumarv/khand035/Projects/MINT/river-depth-estimation/data/Figures/
-	#cp $clipdir/*-viz.csv ./../CSVs
-	#cd ..
-	#git pull https://ankushkhandelwal:Hermionilv_s23@github.com/ankushkhandelwal/river-depth-estimation.git
-	#git add .
-	#git commit -m "auto push"
-	#git push https://ankushkhandelwal:Hermionilv_s23@github.com/ankushkhandelwal/river-depth-estimation.git
-	#cd scripts
-	#python catalog.py  $(basename $clipdir)-viz.csv $( cat $clipdir/dates.txt) $( cat $clipdir/bbox.txt)
+	cp $clipdir/*-viz.csv ./../CSVs
+	cd ..
+	git pull https://ankushkhandelwal:Hermionilv_s23@github.com/ankushkhandelwal/river-depth-estimation.git
+	git add .
+	git commit -m "auto push"
+	git push https://ankushkhandelwal:Hermionilv_s23@github.com/ankushkhandelwal/river-depth-estimation.git
+	cd scripts
+	python catalog.py  $(basename $clipdir)-viz.csv $( cat $clipdir/dates.txt) $( cat $clipdir/bbox.txt)
 done
