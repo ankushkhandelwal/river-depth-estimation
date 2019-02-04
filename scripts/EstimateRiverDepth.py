@@ -404,7 +404,7 @@ for j in range(0,csecs.shape[2]):
 
 
 print 'Creating calibration files...'
-fid = open(data_dir + 'Cat' + catNum + '-' + boxNum + '-viz.csv','w')
+fid = open(data_dir + data_name + '-viz.csv','w')
 
 for c in range(0,csecs.shape[2]):
     #print c

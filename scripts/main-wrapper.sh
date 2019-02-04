@@ -21,7 +21,7 @@ do
 
 	#rm $clipdir/*.png
 	#rm $clipdir/*.csv
-	#python EstimateRiverDepth.py $clipdir
+	python EstimateRiverDepth.py $clipdir
 
 	#cp $clipdir/*.png /home/kumarv/khand035/Projects/MINT/river-depth-estimation/data/Figures/
 	#cp $clipdir/*.csv /home/kumarv/khand035/Projects/MINT/river-depth-estimation/data/Figures/
