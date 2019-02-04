@@ -1,4 +1,4 @@
-sh main-wrapper.sh 100 2016-01-01 2017-03-31 BIDS2100 -1
+sh main-wrapper.sh Pongo 2016-01-01 2017-03-31 BPongo 1
 #sh main-wrapper.sh 101 2016-01-01 2017-03-31 BIDS2101 -1
 #sh main-wrapper.sh 102 2016-01-01 2017-03-31 BIDS2102 -1
 #sh main-wrapper.sh 104 2016-01-01 2017-03-31 BIDS2104 -1

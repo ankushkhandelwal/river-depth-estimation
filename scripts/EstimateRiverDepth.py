@@ -415,7 +415,7 @@ for c in range(0,csecs.shape[2]):
     if lml_ind==-1:
         continue
     
-    fid2 = open(data_dir + 'Cat' + catNum + '-' + boxNum + '-sec-' + str(c) + '.csv','w')
+    fid2 = open(data_dir + data_name + '-sec-' + str(c) + '.csv','w')
     cur_sec = csecs[:,:,c].copy()
     cord = ccord[c]
     sdate = (datetime(2016,1,1) - datetime(1970,1,1)).days

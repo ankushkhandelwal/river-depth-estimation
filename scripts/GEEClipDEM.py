@@ -42,7 +42,10 @@ cdl = cds.GetLayer()
 
 bds = driver.Open(basin_file, 0)
 bdl = bds.GetLayer()
-bdl.SetAttributeFilter("catNum = " + basin_id)
+if basin_id.isupper() or basin_id.islower()==False:
+    bdl.SetAttributeFilter("catNum = " + basin_id)
+else:
+    bdl.SetAttributeFilter("Basin = " + basin_id)
 print 'Number of selected sub-basins: ' + str(bdl.GetFeatureCount())
 
 for bfeature in bdl:
