@@ -29,6 +29,7 @@ do
 	cd ..
 	git add .
 	git commit -m "auto push"
+	git pull
 	git push https://ankushkhandelwal:Hermionilv_s23@github.com/ankushkhandelwal/river-depth-estimation.git
 	cd scripts
 done
