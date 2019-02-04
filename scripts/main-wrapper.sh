@@ -27,9 +27,9 @@ do
 	#cp $clipdir/*.csv /home/kumarv/khand035/Projects/MINT/river-depth-estimation/data/Figures/
 	cp $clipdir/*-viz.csv ./../CSVs
 	cd ..
+	git pull https://ankushkhandelwal:Hermionilv_s23@github.com/ankushkhandelwal/river-depth-estimation.git
 	git add .
 	git commit -m "auto push"
-	git pull https://ankushkhandelwal:Hermionilv_s23@github.com/ankushkhandelwal/river-depth-estimation.git
 	git push https://ankushkhandelwal:Hermionilv_s23@github.com/ankushkhandelwal/river-depth-estimation.git
 	cd scripts
 done
