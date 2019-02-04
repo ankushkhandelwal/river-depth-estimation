@@ -120,18 +120,17 @@ for feature in cdl:
         i = i + 1
         flag = 0
     '''
-    '''
-    year = sdate[0:4]
-    label_id = 'CDL_' + year
+    
+    label_id = 'jrc'
     if os.path.isfile(out_path + label_id + '.zip')==False:
 
-        label_image = ee.Image('USDA/NASS/CDL/' + year)
+        label_image = ee.Image('JRC/GSW1_0/GlobalSurfaceWater').select('recurrence')
         path = label_image.getDownloadUrl({'name': label_id,'region': temp,'scale':10})
         flag = 0
         while True:
             try:
                 urllib.urlretrieve(path, out_path + label_id + '.zip')
-
+                os.system('unzip -q ' + out_path + label_id + '.zip -d ' + out_path)
             except:
                 flag = flag+1
                 if flag<10:
