@@ -73,6 +73,9 @@ for feature in cdl:
     coordTrans = osr.CoordinateTransformation(inSpatialRef, outSpatialRef)
     bgeom.Transform(coordTrans)
     minX, maxX, minY, maxY = bgeom.GetEnvelope()
+    fid = open(out_dir + 'bbox.txt','w')
+    fid.write(str(minY) + ' ' + str(minX) + ' ' + str(maxY) + ' ' + str(maxX) + '\n') 
+    fid.close()
     bds.Destroy()
 
     band = BaseRaster.GetRasterBand(1)
