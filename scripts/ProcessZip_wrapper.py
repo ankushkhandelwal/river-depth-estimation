@@ -39,14 +39,18 @@ else:
 # keeping only unique entries and sorting them
 fnames = list(set(fnames))
 fnames.sort()
-#print fnames
+print fnames
+
+start_date = fnames[0][0:4] + '-' + fnames[0][4:6] + '-' + fnames[0][6:8]
+end_date = fnames[-1][0:4] + '-' + fnames[-1][4:6] + '-' + fnames[-1][6:8]
+
 
 #start_date = fnames[0][0:4] + '-' + fnames[0][4:6] + '-' + fnames[0][6:8] + 'T' + fnames[0][9:11] + ':' + fnames[0][11:13] + ':' + fnames[0][13:15]
 #end_date = fnames[-1][0:4] + '-' + fnames[-1][4:6] + '-' + fnames[-1][6:8] + 'T' + fnames[-1][9:11] + ':' + fnames[-1][11:13] + ':' + fnames[-1][13:15]
 
-#fid = open(data_dir + 'dates.txt','w')
-#fid.write(start_date + ' ' + end_date + '\n')
-#fid.close()
+fid = open(data_dir + 'dates.txt','w')
+fid.write(start_date + ' ' + end_date + '\n')
+fid.close()
 # processing each timestep
 #f = open(data_dir + out_file,'w')
 print 'Creating classification maps...'

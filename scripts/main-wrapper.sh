@@ -11,13 +11,13 @@ python GEEClipDEM.py /home/kumarv/khand035/Projects/MINT/river-depth-estimation/
 
 for clipdir in /home/kumarv/khand035/Projects/MINT/river-depth-estimation/data/$4*/ ; 
 do
-	#rm -rf $clipdir/M*.tif
-	#python ProcessZip_wrapper.py $clipdir $(basename $clipdir).txt 1
+	rm -rf $clipdir/M*.tif
+	python ProcessZip_wrapper.py $clipdir $(basename $clipdir).txt 1
 
-	#rm -rf $clipdir/F*.tif
-	#python MergeMaps.py $clipdir
+	rm -rf $clipdir/F*.tif
+	python MergeMaps.py $clipdir
 
-	#python ManualMapSelection.py $clipdir 
+	python ManualMapSelection.py $clipdir 
 
 	rm $clipdir/*.png
 	rm $clipdir/*.csv
