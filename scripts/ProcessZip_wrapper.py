@@ -13,8 +13,9 @@ if isGEE=='1':
     ext = 'tif'
     fnames = []
     for fname in os.listdir(data_dir):
-        if fname.endswith('tif')==False or fname[0]=='M' or fname[0]=='F':
+        if fname.endswith('tif')==False or fname[0]=='M' or fname[0]=='F' or fname[0]=='j':
             continue
+        #print fname
         fnames.append(fname[17:48])
 
 elif isGEE=='2':
@@ -39,14 +40,15 @@ else:
 # keeping only unique entries and sorting them
 fnames = list(set(fnames))
 fnames.sort()
-print fnames
+#print fnames
+#sys.exit()
 
-start_date = fnames[0][0:4] + '-' + fnames[0][4:6] + '-' + fnames[0][6:8]
-end_date = fnames[-1][0:4] + '-' + fnames[-1][4:6] + '-' + fnames[-1][6:8]
+#start_date = fnames[0][0:4] + '-' + fnames[0][4:6] + '-' + fnames[0][6:8]
+#end_date = fnames[-1][0:4] + '-' + fnames[-1][4:6] + '-' + fnames[-1][6:8]
 
 
-#start_date = fnames[0][0:4] + '-' + fnames[0][4:6] + '-' + fnames[0][6:8] + 'T' + fnames[0][9:11] + ':' + fnames[0][11:13] + ':' + fnames[0][13:15]
-#end_date = fnames[-1][0:4] + '-' + fnames[-1][4:6] + '-' + fnames[-1][6:8] + 'T' + fnames[-1][9:11] + ':' + fnames[-1][11:13] + ':' + fnames[-1][13:15]
+start_date = fnames[0][0:4] + '-' + fnames[0][4:6] + '-' + fnames[0][6:8] + 'T' + fnames[0][9:11] + ':' + fnames[0][11:13] + ':' + fnames[0][13:15]
+end_date = fnames[-1][0:4] + '-' + fnames[-1][4:6] + '-' + fnames[-1][6:8] + 'T' + fnames[-1][9:11] + ':' + fnames[-1][11:13] + ':' + fnames[-1][13:15]
 
 fid = open(data_dir + 'dates.txt','w')
 fid.write(start_date + ' ' + end_date + '\n')
