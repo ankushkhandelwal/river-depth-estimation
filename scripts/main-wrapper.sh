@@ -5,12 +5,12 @@ export KERAS_BACKEND=tensorflow
 
 #python GEEScript.py /home/kumarv/khand035/Projects/MINT/river-depth-estimation/data/GageBoxes2_wbd.shp $2 $3 /home/kumarv/khand035/Projects/MINT/river-depth-estimation/data/ $4 /home/kumarv/khand035/Projects/MINT/river-depth-estimation/data/WBD_Delineation_wgs84.shp $1 $5
 
-python GEEClipDEM.py /home/kumarv/khand035/Projects/MINT/river-depth-estimation/data/GageBoxes2_wbd.shp /home/kumarv/khand035/Projects/MINT/river-depth-estimation/data/dem_wgs84_sqcut.tif credentials.txt /home/kumarv/khand035/Projects/MINT/river-depth-estimation/data/ $4 /home/kumarv/khand035/Projects/MINT/river-depth-estimation/data/WBD_Delineation_wgs84.shp $1 $5 dem.tiff
+#python GEEClipDEM.py /home/kumarv/khand035/Projects/MINT/river-depth-estimation/data/GageBoxes2_wbd.shp /home/kumarv/khand035/Projects/MINT/river-depth-estimation/data/dem_wgs84_sqcut.tif credentials.txt /home/kumarv/khand035/Projects/MINT/river-depth-estimation/data/ $4 /home/kumarv/khand035/Projects/MINT/river-depth-estimation/data/WBD_Delineation_wgs84.shp $1 $5 dem.tiff
 
 #python GEEClipDEM.py /home/kumarv/khand035/Projects/MINT/river-depth-estimation/data/GageBoxes2_wbd.shp /home/kumarv/khand035/Projects/MINT/river-depth-estimation/data/JRC-Recurrence-Pongo.tif credentials.txt /home/kumarv/khand035/Projects/MINT/river-depth-estimation/data/ $4 /home/kumarv/khand035/Projects/MINT/river-depth-estimation/data/WBD_Delineation_wgs84.shp $1 $5 jrc.tiff
 
-#for clipdir in /home/kumarv/khand035/Projects/MINT/river-depth-estimation/data/$4*/ ; 
-#do
+for clipdir in /home/kumarv/khand035/Projects/MINT/river-depth-estimation/data/$4*/ ; 
+do
 	#rm -rf $clipdir/M*.tif
 	#python ProcessZip_wrapper.py $clipdir $(basename $clipdir).txt 1
 
@@ -25,5 +25,10 @@ python GEEClipDEM.py /home/kumarv/khand035/Projects/MINT/river-depth-estimation/
 
 	#cp $clipdir/*.png /home/kumarv/khand035/Projects/MINT/river-depth-estimation/data/Figures/
 	#cp $clipdir/*.csv /home/kumarv/khand035/Projects/MINT/river-depth-estimation/data/Figures/
-
-#done
+	cp $clipdir/*-viz.csv ./../CSVs
+	cd ..
+	git add .
+	git commit -m "auto push"
+	git push https://ankushkhandelwal:Hermionilv_s23@github.com/ankushkhandelwal/river-depth-estimation.git
+	cd scripts
+done
