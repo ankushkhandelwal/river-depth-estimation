@@ -223,7 +223,7 @@ river_width_variable_record_id = "33ed8091-4d54-413e-bff6-2e1d1fee6fad"
 
 # Step 3: Register resources
 # Assume that I host my datasets files on www.my_domain.com/storage
-data_storage_url = "http://workflow.isi.edu/scratch/ankush"
+data_storage_url = "https://github.com/ankushkhandelwal/river-depth-estimation/blob/master/CSVs/"
 
 # Also, assume that I've collected 2 days worth of data
 # in temp_records_2018_01_01.csv and temp_records_2018_01_02.csv. 
