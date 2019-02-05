@@ -269,10 +269,10 @@ file_1_temporal_coverage = {
 file_1_spatial_coverage = {
     "type": "BoundingBox",
     "value": {
-        "xmin": float(sys.argv[4]),
-        "ymin": float(sys.argv[5]),
-        "xmax": float(sys.argv[6]),
-        "ymax": float(sys.argv[7])
+        "xmin": float(sys.argv[5]),
+        "ymin": float(sys.argv[4]),
+        "xmax": float(sys.argv[7]),
+        "ymax": float(sys.argv[6])
     }
 }
 
