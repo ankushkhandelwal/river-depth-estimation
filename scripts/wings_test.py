@@ -10,12 +10,11 @@ import glob
 base_dir = sys.argv[1]
 prefix = sys.argv[2]
 numsamples = int(sys.argv[3])
-
+folder_name = base_dir + 'Boxes/'
+os.mkdir(folder_name)
 for i in range(numsamples):
-	folder_name = base_dir + prefix + '-' + str(i) + '/'
-	os.mkdir(folder_name)
-	fid = open(folder_name + 'test.txt','w')
-	fid.write('this is a test line')
+	fid = open(folder_name + prefix + '-' + str(i) + '.txt','w')
+	fid.write(str(i)+ ',' + str(i+1) + '\n')
 	fid.close()
 sys.exit()
 
