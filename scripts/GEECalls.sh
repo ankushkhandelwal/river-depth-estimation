@@ -1,9 +1,0 @@
-#sh main-wrapper.sh Pongo 2016-01-01 2017-03-31 BIDS2100 -1
-sh main-wrapper.sh Pongo 2016-01-01 2017-03-31 BIDS2101 -1
-#sh main-wrapper.sh Pongo 2016-01-01 2017-03-31 BIDS2102 -1
-#sh main-wrapper.sh Pongo 2016-01-01 2017-03-31 BIDS2104 -1
-#sh main-wrapper.sh Pongo 2016-01-01 2017-03-31 BIDS2105 -1
-#sh main-wrapper.sh Pongo 2016-01-01 2017-03-31 BIDS2107 -1
-#sh main-wrapper.sh Pongo 2016-01-01 2017-03-31 BIDS2110 -1
-#sh main-wrapper.sh Pongo 2016-01-01 2017-03-31 BIDS2113 -1
-#sh main-wrapper.sh Pongo 2016-01-01 2017-03-31 BIDS2114 -1
