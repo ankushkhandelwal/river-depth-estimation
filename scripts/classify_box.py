@@ -19,6 +19,14 @@ import model_library
 data_dir = sys.argv[1] # path of box folder where clipped files are stored
 img_dir = sys.argv[2]
 model_name = sys.argv[3]
+cinfo = sys.argv[4]
+
+prefix = cinfo[0:-4]
+if '/' in prefix:
+    prefix = prefix[prefix.rfind('/')+1:]
+# data_dir = data_dir + prefix + '/'
+# img_dir = data_dir
+
 
 
 s2model=models.img_label(pretrained_weights=model_name,type='init')
@@ -156,12 +164,14 @@ def pred_fun2(fpath,img_dir,idn):
         # model_library.cloud_pred(full_band_matrix)
 
 print(data_dir)
-flist = glob.glob(data_dir + 'S2*.tif')
+flist = glob.glob(data_dir + prefix + '/S2*.tif')
+print('Number of files: ' + str(len(flist)))
 tasks = []
 for fpath in flist:
     fname = fpath[fpath.rfind('/')+1:]
     boxid = fpath.split('/')[-2]
     if os.path.isdir(img_dir + boxid)==False:
         os.mkdir(img_dir + boxid)
+    print(img_dir)
     if os.path.isfile(img_dir + boxid + '/C' + fname[0:-4] + '.npy')==False:
         pred_fun2(fpath,img_dir,1)
