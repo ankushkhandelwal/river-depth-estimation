@@ -81,3 +81,13 @@ if isbasin==1:
     os.system('rm -f ' + input_str + '.shx*')
     os.system('rm -f ' + input_str + '.prj*')
     os.system('rm -f ' + input_str + '.dbf*')
+
+
+if islist==1:
+	pieces = input_str.split(';')
+	ctr = 0
+	for cord_str in pieces:
+        fid = open(folder_name + prefix + '-' + str(ctr) + '.txt','w')
+        fid.write(cord_str)
+        fid.close()
+		ctr = ctr + 1
