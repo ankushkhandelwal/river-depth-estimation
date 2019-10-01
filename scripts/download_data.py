@@ -60,15 +60,15 @@ aoi_geometry = {'type': 'Polygon',
                              (lon_min, lat_min)),)}
 
 
-scenes, geoctx = dl.scenes.search(aoi_geometry, products=["sentinel-1:GRD"],start_datetime=sdate,end_datetime=edate)
-print('Number of scenes found: ' + str(len(scenes)))
-for i in range(0,len(scenes)):
-    curid = scenes[i].properties.id
-    curname = scenes[i].properties.identifier
-    print(curname)
-    if os.path.isfile(out_path + curname + '.tif')==True:
-        continue
-    raster_file=raster_client.raster(inputs=curid,bands=['vv','vh'],data_type='Byte',align_pixels=True,cutline=aoi_geometry,save=True,outfile_basename=out_path + curname,output_format='GTiff',resolution=10)
+# scenes, geoctx = dl.scenes.search(aoi_geometry, products=["sentinel-1:GRD"],start_datetime=sdate,end_datetime=edate)
+# print('Number of scenes found: ' + str(len(scenes)))
+# for i in range(0,len(scenes)):
+#     curid = scenes[i].properties.id
+#     curname = scenes[i].properties.identifier
+#     print(curname)
+#     if os.path.isfile(out_path + curname + '.tif')==True:
+#         continue
+#     raster_file=raster_client.raster(inputs=curid,bands=['vv','vh'],data_type='Byte',align_pixels=True,cutline=aoi_geometry,save=True,outfile_basename=out_path + curname,output_format='GTiff',resolution=10)
 
 
 

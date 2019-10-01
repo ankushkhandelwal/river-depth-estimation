@@ -9,7 +9,7 @@ from keras.optimizers import *
 from keras.callbacks import ModelCheckpoint, LearningRateScheduler
 from keras import backend as keras
 import keras.initializers
-import models_exp1 as models
+import models
 import matplotlib.pyplot as plt
 import sys
 import os
@@ -60,11 +60,13 @@ def pred_fun2(fpath,img_dir,idn):
         pred_bands_org=all_bands[:,:,[1,2,3,4,5,6,7,11,12]]
         min_arr = np.zeros((pred_bands_org.shape[2],))-1
         max_arr = np.zeros((pred_bands_org.shape[2],))-1
+        mean_arr = np.zeros((pred_bands_org.shape[2],))-1
         for i in range(pred_bands_org.shape[2]):
             b_max=np.max(pred_bands_org[:,:,i])
             b_min=np.min(pred_bands_org[:,:,i])
             min_arr[i] = b_min
             max_arr[i] = b_max
+            mean_arr[i] = np.mean(pred_bands_org[:,:,i])
 
         if np.sum(min_arr>0)==0 and np.sum(max_arr>0)==0:
             pred_labels=np.zeros((brows,bcols),float)
@@ -76,7 +78,8 @@ def pred_fun2(fpath,img_dir,idn):
         for i in range(pred_bands_org.shape[2]):
             b_min = min_arr[i]
             b_max = max_arr[i]
-            pred_bands_org[:,:,i]=(pred_bands_org[:,:,i]-b_min)/(b_max-b_min)
+            # b_mean =
+            # pred_bands_org[:,:,i]=(pred_bands_org[:,:,i]-b_min)/(b_max-b_min)
 
         if brows<96:
             temp = pred_bands_org.copy()
@@ -113,17 +116,18 @@ def pred_fun2(fpath,img_dir,idn):
             bcols = 96
 
         # print(brows,bcols)
-        rarr = np.arange(0,brows,48)
-        rarr = rarr[0:-2]
+        step = 48
+        rarr = np.arange(0,brows,step)
+        rarr = rarr[0:-1*int(96/step)]
         rarr = np.append(rarr,brows-96)
-        carr = np.arange(0,bcols,48)
-        carr = carr[0:-2]
+        carr = np.arange(0,bcols,step)
+        carr = carr[0:-int(96/step)]
         carr = np.append(carr,bcols-96)
         # print(rarr,carr)
 
         pred_labels=np.zeros((brows,bcols),float)
         pred_deno=np.zeros((brows,bcols),float)
-        ppad = 12
+        ppad = 24
         # print('ready for prediction')
         # print(pred_bands_org.shape)
         X = np.zeros((len(rarr)*len(carr),96,96,9))
@@ -133,6 +137,18 @@ def pred_fun2(fpath,img_dir,idn):
                 # print(r,c,ctr)
                 # print(ctr)
                 pred_bands=pred_bands_org[r:r+96,c:c+96,:].copy()
+                min_arr = np.zeros((pred_bands.shape[2],))-1
+                max_arr = np.zeros((pred_bands.shape[2],))-1
+                for i in range(pred_bands.shape[2]):
+                    b_max=np.max(pred_bands[:,:,i])
+                    b_min=np.min(pred_bands[:,:,i])
+                    min_arr[i] = b_min
+                    max_arr[i] = b_max
+                for i in range(pred_bands.shape[2]):
+                    b_min = min_arr[i]
+                    b_max = max_arr[i]
+                    # pred_bands[:,:,i]=(pred_bands[:,:,i]-b_min)/(b_max-b_min)
+                    pred_bands[:,:,i]=pred_bands[:,:,i]*1.0/mean_arr[i]
                 X[ctr,:,:,:] = pred_bands
                 ctr = ctr + 1
         Y=s2model.predict(X)
@@ -153,6 +169,10 @@ def pred_fun2(fpath,img_dir,idn):
         pred_labels[pad_inds] = 3
         pred_labels_cloud = pred_labels.copy()
         pred_labels_cloud[cloud_matrix[:,:,1]==1] = 2
+        # plt.figure()
+        # plt.imshow(pred_labels)
+        # plt.show()
+
         # D = np.sum(pred_labels_cloud==2)
         # print(9)
         np.save(img_dir + boxid + '/M' + fname[0:-4],pred_labels_cloud)
@@ -168,6 +188,8 @@ flist = glob.glob(data_dir + prefix + '/S2*.tif')
 print('Number of files: ' + str(len(flist)))
 tasks = []
 for fpath in flist:
+    # if '20151218' not in fpath:
+        # continue
     fname = fpath[fpath.rfind('/')+1:]
     boxid = fpath.split('/')[-2]
     if os.path.isdir(img_dir + boxid)==False:

@@ -19,7 +19,7 @@ buf_dist = 0.005
 
 base_dir = sys.argv[1]
 prefix = 'cord'
-numsamples = int(sys.argv[2])
+numsamples = sys.argv[2]
 input_str = sys.argv[3]
 
 folder_name = base_dir + 'Boxes/'
@@ -31,6 +31,7 @@ os.mkdir(folder_name)
 isbasin = 0
 islist = 0
 ispoint = 0
+ispoly = 0
 if ',' not in input_str:
     isbasin = 1
     # prefix = prefix + '-' + input_str
@@ -41,6 +42,7 @@ if ',' in input_str and ispoly==0:
 
 if isbasin==1:
     # removing files if previously downloaded
+    numsamples = int(numsamples)
     os.system('rm -f ' + input_str + '.shp*')
     os.system('rm -f ' + input_str + '.shx*')
     os.system('rm -f ' + input_str + '.prj*')
@@ -85,9 +87,12 @@ if isbasin==1:
 
 if islist==1:
 	pieces = input_str.split(';')
+	ids = numsamples.split(',')
 	ctr = 0
-	for cord_str in pieces:
-        fid = open(folder_name + prefix + '-' + str(ctr) + '.txt','w')
-        fid.write(cord_str)
-        fid.close()
+	for j in range(0,len(pieces)):
+		cord_str = pieces[j]
+		id = ids[j]
+		fid = open(folder_name + prefix + '-' + id + '.txt','w')
+		fid.write(cord_str)
+		fid.close()
 		ctr = ctr + 1

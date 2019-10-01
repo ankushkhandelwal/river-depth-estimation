@@ -5,10 +5,12 @@ import glob
 import numpy as np
 data_dir = sys.argv[1]
 cinfo = sys.argv[2]
-
-prefix = cinfo[0:-4]
-if '/' in prefix:
+if '/' in cinfo:
+    prefix = cinfo[0:-4]
     prefix = prefix[prefix.rfind('/')+1:]
+else:
+    prefix = cinfo
+boxid = prefix
 
 data_dir = data_dir + prefix + '/'
 
@@ -38,6 +40,9 @@ for i in range(0,len(fnames)):
     #     continue
 
     imgs = glob.glob(data_dir + 'O*' + fname + '*.npy')
+    tname = imgs[0].split('/')[-1]
+
+
     #print fname
     # print fname, len(imgs)
 
@@ -75,7 +80,7 @@ for i in range(0,len(fnames)):
 
     except:
         print('size mismatch')
-        os.system('rm -rf ' + data_dir + '/F3_*.npy')
+        os.system('rm -rf ' + data_dir + '/F*.npy')
         # sys.exit()
         break
-    np.save(data_dir + '/F3_' + fname,fmap)
+    np.save(data_dir + '/F' + tname[1:-4],fmap)
