@@ -21,11 +21,12 @@ img_dir = sys.argv[2]
 model_name = sys.argv[3]
 cinfo = sys.argv[4]
 
-prefix = cinfo[0:-4]
-if '/' in prefix:
+if '/' in cinfo:
+    prefix = cinfo[0:-4]
     prefix = prefix[prefix.rfind('/')+1:]
-# data_dir = data_dir + prefix + '/'
-# img_dir = data_dir
+else:
+    prefix = cinfo
+boxid = prefix
 
 
 

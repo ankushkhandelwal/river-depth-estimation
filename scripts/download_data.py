@@ -22,9 +22,12 @@ edate = sys.argv[2]
 out_base = sys.argv[3]
 cinfo = sys.argv[4]
 buf_dist = float(sys.argv[5])
-prefix = cinfo[0:-4]
-if '/' in prefix:
+if '/' in cinfo:
+    prefix = cinfo[0:-4]
     prefix = prefix[prefix.rfind('/')+1:]
+else:
+    prefix = cinfo
+boxid = prefix
 
 with open(cinfo) as f:
     content = f.readlines()

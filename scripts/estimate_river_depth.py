@@ -357,7 +357,7 @@ dem_file = glob.glob(base_dir + boxNum + '/SRTM*.tif')[0]
 # print(dem_file)
 #print(boxNum)
 flag = 0
-mask_list = glob.glob(data_dir + 'F3_*.npy')
+mask_list = glob.glob(data_dir + 'O*.npy')
 mask_list.sort()
 datestr_list = []
 datetim_list = []
@@ -368,9 +368,10 @@ if len(mask_list)==0:
     sys.exit()
 for filename in mask_list:
     # print(filename)
-    u1 = filename.rfind('_')
-    u2 = filename.rfind('.')
-    datestr = filename[u1+1:u2]
+    # u1 = filename.rfind('_')
+    # u2 = filename.rfind('.')
+    # datestr = filename[u1+1:u2]
+    datestr = filename[-34:-26]
     # print(datestr)
     datefmt = datestr[0:4] + '-' + datestr[4:6] + '-' + datestr[6:8] + 'T' + '00' + ':' + '00' + ':' + '00'
     #print(datefmt)
